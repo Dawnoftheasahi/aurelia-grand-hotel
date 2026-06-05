@@ -32,6 +32,8 @@ app.use((err, req, res, next) => { console.error(err.stack); res.status(500).jso
 
 initializeDatabase()
   .then(async () => {
+    console.log('RUN_SEED value:', JSON.stringify(process.env.RUN_SEED));
+
     if (process.env.RUN_SEED === 'true') {
       console.log('🌱 RUN_SEED=true detected, starting seed...');
       await seed({ initDb: false });
@@ -40,7 +42,3 @@ initializeDatabase()
 
     app.listen(PORT, () => console.log(`✨ Aurelia Grand API running on port ${PORT}`));
   })
-  .catch(err => {
-    console.error('DB init failed:', err);
-    process.exit(1);
-  });
